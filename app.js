@@ -1,6 +1,7 @@
 const qwerty = document.getElementById('qwerty');
-const phraseDiv = document.getElementById('phrase');
+let phraseDiv = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
+const overlay = document.getElementById('overlay');
 let missed = 0;
 const phrases = [   'hello world',
                     'this is an element',
@@ -10,7 +11,7 @@ const phrases = [   'hello world',
 ];
 
 btnReset.addEventListener('click', () =>{
-    btnReset.style.display = "none";
+    overlay.style.display = "none";
 
 })
 
@@ -26,10 +27,10 @@ const phraseArray = getRandomPhraseAsArray(phrases);
 const addPhraseToDisplay = (arr) => {
     // do stuff any arr that is passed in, and add to `#phrase ul`
     for (let i = 0; i < arr.length; i++){
-        let li = document.createElement('li');
-        li = arr[i].textContent;
-        phraseDiv = phraseDiv.children;
-        phraseDiv.appendChild(li);
+        let li = document.createElement('li');// create li elements
+        li = arr[i].textContent;// passing the text into li
+        phraseDiv = phraseDiv.children; // selecting the ul form the div element
+        phraseDiv.appendChild(li);// appending li to children of div
         return phraseDiv;
     }
 }
