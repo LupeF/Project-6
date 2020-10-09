@@ -3,11 +3,11 @@ let phraseDiv = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
 const overlay = document.getElementById('overlay');
 const buttons = document.querySelectorAll('button');
-let tries = document.getElementsByClassName('tries');
+let tries = document.querySelectorAll('img');
 let missed = 0;
 const phrases = [   'hello world',
                     'this is an element',
-                    'i love programming',
+                    'treehouse',
                     'javascript',
                     'create an element'  
 ];
@@ -44,16 +44,15 @@ addPhraseToDisplay(phraseArray); //calls function to add phrase to display
 const checkLetter = (button) => {
     let letter = document.querySelectorAll('ul .letter'); //selects li with class of letter
     let match = null;
-    for (let i =0; i < letter.length; i++) {
+    for (let i =0; i < letter.length; i++) { // loops through al li elements 
         if (letter[i].textContent === button.textContent){ //compares the text of li with the button
-            letter.className = "show"; //adds class name to li
-            match = letter[i].textContent; // adds textcontent of letter to a variable
-        } if (match !== null){
-            return match;
-        } else {
-            return null;
-        }
+            letter[i].className += " show"; //adds class name to li
+            match += letter[i].textContent; // adds textcontent of letter to a variable
+        } 
     }
+    return match;
+
+   
 }
 
 keyboard.addEventListener('click', (e) => { //adds eventlistener on keyboard div
@@ -63,15 +62,28 @@ keyboard.addEventListener('click', (e) => { //adds eventlistener on keyboard div
     } if (e.target.className === 'chosen'){
         e.target.disabled = "true"; //disables button if it has been selected
         let letterFound = checkLetter(e.target);
-        return letterFound;
-        }
-        if (letter === null){
+        if (letterFound !== null){
+            return letterFound;
+        }else{
             missed += 1;
-            for (let i =0; i < tries.length; i++){
-            tries[i].style.display = "none"
-            }
+            tries[missed].style.display= "none";
         }
+        checkWin();
+    }
         
+    const checkWin = () => {
+        let letter = document.getElementsByClassName("letter"); //add li with class letter into variable
+        let show = document.getElementsByClassName("show"); //add li with class show into variable
+        let h2 = document.getElementsByClassName("banner"); //add li with class banner into variable
+        if ( letter.length === show.length){ // compares length of variables
+            overlay.className += " win";    // adds class of win to the over lay
+            h2.textContent = "you won";     // changes the text of the banner
+            overlay.style.display = "flex";
+        } else if (missed > 5){                  //if variable is greater than 4, apply those changes
+            overlay.className += " lose";
+            h2.textContent = " you lose";
+            overlay.style.display = "flex";
+        }
+    }
         
-
 });
