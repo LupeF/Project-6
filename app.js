@@ -66,24 +66,25 @@ keyboard.addEventListener('click', (e) => { //adds eventlistener on keyboard div
             return letterFound;
         }else{
             missed += 1;
-            tries[missed].style.display= "none";
+            tries[missed - 1 ].style.display= "none";
         }
-        checkWin();
-    }
         
-    const checkWin = () => {
-        let letter = document.getElementsByClassName("letter"); //add li with class letter into variable
-        let show = document.getElementsByClassName("show"); //add li with class show into variable
-        let h2 = document.getElementsByClassName("banner"); //add li with class banner into variable
-        if ( letter.length === show.length){ // compares length of variables
-            overlay.className += " win";    // adds class of win to the over lay
-            h2.textContent = "you won";     // changes the text of the banner
-            overlay.style.display = "flex";
-        } else if (missed > 5){                  //if variable is greater than 4, apply those changes
-            overlay.className += " lose";
-            h2.textContent = " you lose";
-            overlay.style.display = "flex";
-        }
     }
-        
+    
+    checkWin();
 });
+const checkWin = () => {
+    let letter = document.getElementsByClassName("letter"); //add li with class letter into variable
+    let show = document.getElementsByClassName("show"); //add li with class show into variable
+    let h2 = document.getElementsByClassName("banner"); //add li with class banner into variable
+ 
+    if ( letter.length === show.length){ // compares length of variables
+        overlay.className += " win";    // adds class of win to the over lay
+        h2.textContent = "you won";     // changes the text of the banner
+        overlay.style.display = "flex";
+    } else if (missed > 4){                  //if variable is greater than 4, apply those changes
+        overlay.className += " lose";
+        h2.textContent = " you lose";
+        overlay.style.display = "flex";
+    }
+}
