@@ -2,7 +2,6 @@ const keyboard = document.getElementById('qwerty');
 let phraseDiv = document.getElementById('phrase');
 const btnReset = document.querySelector('.btn__reset');
 const overlay = document.getElementById('overlay');
-const buttons = document.querySelectorAll('button');
 let tries = document.querySelectorAll('img');
 let missed = 0;
 const phrases = [   'hello world',
@@ -51,40 +50,53 @@ const checkLetter = (button) => {
         } 
     }
     return match;
-
-   
 }
 
 keyboard.addEventListener('click', (e) => { //adds eventlistener on keyboard div
-    
     if (e.target.tagName === 'BUTTON'){    
         e.target.className = "chosen"; //adds class of chosen if button is clicked
     } if (e.target.className === 'chosen'){
         e.target.disabled = "true"; //disables button if it has been selected
         let letterFound = checkLetter(e.target);
-        if (letterFound !== null){
-            return letterFound;
-        }else{
+        if (letterFound === null){
             missed += 1;
             tries[missed - 1 ].style.display= "none";
         }
-        
-    }
-    
-    checkWin();
+        checkWin();
+    }  
+
 });
+
+const restart = () => {
+    let buttons = document.getElementsByClassName("chosen");
+    if (buttons.className === "chosen") { // selects buttons with class of chosen
+        buttons.disabled = "false"; // enables buttons
+        buttons.remove("chosen"); //removes the class 
+    }   
+    missed = 0;
+    for(let i = 0; i < tries.length; i++){
+        tries[i].style.display = "block"; // displays hearts
+    }
+    addPhraseToDisplay(phraseArray);
+}
+
 const checkWin = () => {
     let letter = document.getElementsByClassName("letter"); //add li with class letter into variable
     let show = document.getElementsByClassName("show"); //add li with class show into variable
-    let h2 = document.getElementsByClassName("banner"); //add li with class banner into variable
+    let h2 = document.querySelector(".title"); //add li with class banner into variable
  
     if ( letter.length === show.length){ // compares length of variables
-        overlay.className += " win";    // adds class of win to the over lay
-        h2.textContent = "you won";     // changes the text of the banner
+        overlay.className = "win";    // adds class of win to the over lay
+        h2.textContent = "correct";    // changes the text of the banner
         overlay.style.display = "flex";
+        // btnReset.style.display = "none";;
     } else if (missed > 4){                  //if variable is greater than 4, apply those changes
-        overlay.className += " lose";
-        h2.textContent = " you lose";
+        overlay.className = "lose";
+        h2.textContent = "you lose";
         overlay.style.display = "flex";
+        // btnReset.style.display = "none";
     }
+    restart()
 }
+
+
