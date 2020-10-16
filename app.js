@@ -68,16 +68,26 @@ keyboard.addEventListener('click', (e) => { //adds eventlistener on keyboard div
 });
 
 const restart = () => {
-    let buttons = document.getElementsByClassName("chosen");
-    if (buttons.className === "chosen") { // selects buttons with class of chosen
-        buttons.disabled = "false"; // enables buttons
-        buttons.remove("chosen"); //removes the class 
-    }   
     missed = 0;
-    for(let i = 0; i < tries.length; i++){
-        tries[i].style.display = "block"; // displays hearts
-    }
-    addPhraseToDisplay(phraseArray);
+    let li = document.getElementsByClassName("letter"); // selects div with with class
+    let buttons = document.querySelectorAll("button");  // selects the buttop
+    btnReset.addEventListener('click', (e) =>{
+        for (let i = 0; i < li.length; i++ ){
+            phraseDiv.removeChild(li); // removes list items
+        }
+        for (let i = 0; i < buttons.length; i++ ){
+            if (buttons.className === "chosen"){
+                buttons.disabled = "false"
+                buttons.classList.remove("chosen"); 
+            } 
+        }
+        for (let i = 0; i < tries.length; i++) {
+            tries[i].style.display = "block";
+            
+        } 
+        addPhraseToDisplay(phraseArray)
+    })
+    
 }
 
 const checkWin = () => {
@@ -87,16 +97,18 @@ const checkWin = () => {
  
     if ( letter.length === show.length){ // compares length of variables
         overlay.className = "win";    // adds class of win to the over lay
-        h2.textContent = "correct";    // changes the text of the banner
+        h2.textContent = "correct ";    // changes the text of the banner
         overlay.style.display = "flex";
-        // btnReset.style.display = "none";;
+        restart ();
+        
     } else if (missed > 4){                  //if variable is greater than 4, apply those changes
         overlay.className = "lose";
-        h2.textContent = "you lose";
+        h2.textContent = "try again";
         overlay.style.display = "flex";
-        // btnReset.style.display = "none";
+        restart();
+        
     }
-    restart()
+    
 }
 
 
