@@ -32,6 +32,8 @@ body {
 li, ol, ul {
   padding: 0;
   display: inline-block;
+  
+  ;
 }
 
 h2 {
