@@ -27,6 +27,7 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+
 }
 
 li, ol, ul {
@@ -88,6 +89,7 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  
 }
 
 .space {
@@ -97,6 +99,9 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  transition: transform 1s ;
+  transform: rotateY(360deg);
+  
 }
 
 /* Keyboard */
