@@ -16,7 +16,7 @@ const phrases = [   'Spider Man',
 btnReset.addEventListener('click', () =>{
     overlay.style.display = "none"; //hides overlaybackground when start is clicked
     let newHeader = document.querySelector('.header');
-    newHeader.textContent = "Who am I?"
+    newHeader.textContent = "What Marvel Hero am I?"
 
 })
 
@@ -101,13 +101,20 @@ const restart = () => {
     }
 }
 
+const losePhrase = () => {
+    const p = document.createElement('p');
+    p.textContent = `it was ${phraseArray.join('').toUpperCase()}`;
+    overlay.insertBefore(p, btnReset );
+    
+}
+
 const checkWin = () => {
     let letter = document.getElementsByClassName("letter"); //add li with class letter into variable
     let show = document.getElementsByClassName("show"); //add li with class show into variable
     let h2 = document.querySelector(".title"); //add li with class banner into variable
  
-    if ( letter.length === show.length){ // compares length of variables
-        overlay.className = "win";    // adds class of win to the over lay
+    if ( letter.length === show.length){ // compares length of both variables
+        overlay.className = "win";    // adds class of win to the overlay
         h2.textContent = "correct ";    // changes the text of the banner
         overlay.style.display = "flex";
         btnReset.textContent = "try again"
@@ -118,6 +125,7 @@ const checkWin = () => {
         h2.textContent = "try again";
         overlay.style.display = "flex";
         btnReset.textContent = "try again"
+        losePhrase();
         restart();
         
     }

@@ -20,6 +20,7 @@
 
 * {
   box-sizing: border-box;
+  
 }
 
 body {
@@ -33,8 +34,7 @@ body {
 li, ol, ul {
   padding: 0;
   display: inline-block;
-  
-  ;
+  font-family: 'Bebas Neue', cursive;
 }
 
 h2 {
@@ -43,6 +43,7 @@ h2 {
   font-family: 'Open Sans', sans-serif;
   font-size: var(--font-size-large);
   margin: 0;
+  font-family: 'Bebas Neue', cursive;
 }
 
 button {
@@ -90,6 +91,9 @@ button {
   background: var(--color-neutral-light);
   border-radius: 5px;
   
+  
+  
+  
 }
 
 .space {
@@ -99,8 +103,9 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
-  transition: transform 1s ;
+  transition:   1s ;
   transform: rotateY(360deg);
+  
   
 }
 
