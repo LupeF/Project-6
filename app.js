@@ -69,7 +69,6 @@ keyboard.addEventListener('click', (e) => {
         }
         checkWin();
     }  
-
 });
 
 //**restart */
@@ -104,8 +103,15 @@ const restart = () => {
 const losePhrase = () => {
     const p = document.createElement('p');
     p.textContent = `it was ${phraseArray.join('').toUpperCase()}`;
-    overlay.insertBefore(p, btnReset );
-    
+    overlay.insertBefore(p, btnReset ); 
+    if (btnReset.textContent === "try again"){
+        btnReset.addEventListener('click', (e) =>{
+            overlay.removeChild(p);
+            const p = document.createElement('p');
+            p.textContent = `it was ${phraseArray.join('').toUpperCase()}`;
+            overlay.insertBefore(p, btnReset );
+        })
+    }
 }
 
 const checkWin = () => {
