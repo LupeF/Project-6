@@ -78,7 +78,7 @@ const restart = () => {
     let buttons = document.querySelectorAll("button");  // selects the button
     let newArray = getRandomPhraseAsArray(phrases); //adds new array 
     
-    
+    //resets buttons and removes chosen classes
     if (btnReset.textContent === "try again"){
         btnReset.addEventListener('click', (e) =>{
             phraseUl.innerHTML = "";  // erase's the li's in the ul
@@ -101,15 +101,16 @@ const restart = () => {
 }
 
 const losePhrase = () => {
+    // creates a P tag and is inseted in the overlay Div
     const p = document.createElement('p');
     p.textContent = `it was ${phraseArray.join('').toUpperCase()}`;
     overlay.insertBefore(p, btnReset ); 
+    //romoves the p tag when reset button is clicked
     if (btnReset.textContent === "try again"){
         btnReset.addEventListener('click', (e) =>{
-            overlay.removeChild(p);
-            const p = document.createElement('p');
-            p.textContent = `it was ${phraseArray.join('').toUpperCase()}`;
-            overlay.insertBefore(p, btnReset );
+            let eraseP = document.querySelector('.lose p');
+            overlay.removeChild(eraseP);
+           
         })
     }
 }
@@ -118,7 +119,7 @@ const checkWin = () => {
     let letter = document.getElementsByClassName("letter"); //add li with class letter into variable
     let show = document.getElementsByClassName("show"); //add li with class show into variable
     let h2 = document.querySelector(".title"); //add li with class banner into variable
- 
+  
     if ( letter.length === show.length){ // compares length of both variables
         overlay.className = "win";    // adds class of win to the overlay
         h2.textContent = "correct ";    // changes the text of the banner
