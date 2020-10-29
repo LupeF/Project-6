@@ -71,7 +71,7 @@ keyboard.addEventListener('click', (e) => {
     }  
 });
 
-//**restart */
+// **restart */
 const restart = () => {
     missed = 0;
     let phraseUl = document.querySelector("ul");
@@ -96,6 +96,7 @@ const restart = () => {
             } 
             //adds new phrase
             addPhraseToDisplay(newArray);
+            // addPhraseToDisplay(phraseArray)
         })
     }
 }
@@ -103,14 +104,20 @@ const restart = () => {
 const losePhrase = () => {
     // creates a P tag and is inseted in the overlay Div
     const p = document.createElement('p');
-    p.textContent = `it was ${phraseArray.join('').toUpperCase()}`;
+    let answer = phraseDiv.querySelectorAll("li");
+    let answers = [];
+    for (let i = 0; i<answer.length; i++){
+        answers.push(answer[i].textContent);
+    }
+    p.textContent = `it was ${answers.join('').toUpperCase()}`;
     overlay.insertBefore(p, btnReset ); 
     //romoves the p tag when reset button is clicked
     if (btnReset.textContent === "try again"){
         btnReset.addEventListener('click', (e) =>{
             let eraseP = document.querySelector('.lose p');
-            overlay.removeChild(eraseP);
-           
+            if(eraseP){
+                overlay.removeChild(eraseP);
+            }
         })
     }
 }
@@ -129,12 +136,11 @@ const checkWin = () => {
         
     } else if (missed > 4){                  //if variable is greater than 4, apply those changes
         overlay.className = "lose";
-        h2.textContent = "try again";
         overlay.style.display = "flex";
+        h2.textContent = "try again";
         btnReset.textContent = "try again"
         losePhrase();
-        restart();
-        
+        restart();  
     }
     
 }
